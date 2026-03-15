@@ -1,61 +1,4 @@
-// === CUSTOM CURSOR ===
-(function () {
-  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
 
-  const dot = document.getElementById('cursor-dot');
-  const ring = document.getElementById('cursor-ring');
-  if (!dot || !ring) return;
-
-  let mouseX = 0, mouseY = 0;
-  let ringX = 0, ringY = 0;
-  let rafId;
-
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    dot.style.left = mouseX + 'px';
-    dot.style.top = mouseY + 'px';
-  });
-
-  function animateRing() {
-    ringX += (mouseX - ringX) * 0.35;
-    ringY += (mouseY - ringY) * 0.35;
-    ring.style.left = ringX + 'px';
-    ring.style.top = ringY + 'px';
-    rafId = requestAnimationFrame(animateRing);
-  }
-  animateRing();
-
-  document.addEventListener('mouseover', (e) => {
-    if (e.target.closest('a, button, .tilt-card')) {
-      document.body.classList.add('cursor-hover');
-    }
-  });
-
-  document.addEventListener('mouseout', (e) => {
-    if (e.target.closest('a, button, .tilt-card')) {
-      document.body.classList.remove('cursor-hover');
-    }
-  });
-
-  document.addEventListener('mousedown', () => {
-    document.body.classList.add('cursor-click');
-  });
-
-  document.addEventListener('mouseup', () => {
-    document.body.classList.remove('cursor-click');
-  });
-
-  document.addEventListener('mouseleave', () => {
-    dot.style.opacity = '0';
-    ring.style.opacity = '0';
-  });
-
-  document.addEventListener('mouseenter', () => {
-    dot.style.opacity = '1';
-    ring.style.opacity = '1';
-  });
-})();
 
 // === SKELETON LOADER ===
 (function () {
@@ -567,5 +510,74 @@ if (modal) {
 
   document.addEventListener('touchend', () => {
     clearTimeout(holdTimer);
+  });
+})();
+
+// === CUSTOM CURSOR ===
+(function () {
+  // Don't run on touch devices
+  if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+
+  // Create cursor elements
+  const dot  = document.createElement('div');
+  const ring = document.createElement('div');
+  dot.id  = 'cursor-dot';
+  ring.id = 'cursor-ring';
+  document.body.appendChild(dot);
+  document.body.appendChild(ring);
+
+  let mouseX = 0, mouseY = 0;
+  let ringX  = 0, ringY  = 0;
+  let rafId;
+
+  // Track mouse position
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.style.left = mouseX + 'px';
+    dot.style.top  = mouseY + 'px';
+  });
+
+  // Smooth ring follow with lerp
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.20;
+    ringY += (mouseY - ringY) * 0.20;
+    ring.style.left = ringX + 'px';
+    ring.style.top  = ringY + 'px';
+    rafId = requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Hover state on interactive elements
+  const interactives = 'a, button, [onclick], input, textarea, label, select';
+  
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest(interactives)) {
+      document.body.classList.add('cursor-hover');
+    }
+  });
+
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.closest(interactives)) {
+      document.body.classList.remove('cursor-hover');
+    }
+  });
+
+  // Click state
+  document.addEventListener('mousedown', () => {
+    document.body.classList.add('cursor-click');
+  });
+  document.addEventListener('mouseup', () => {
+    document.body.classList.remove('cursor-click');
+  });
+
+  // Hide when leaving window
+  document.addEventListener('mouseleave', () => {
+    dot.style.opacity  = '0';
+    ring.style.opacity = '0';
+  });
+  document.addEventListener('mouseenter', () => {
+    dot.style.opacity  = '1';
+    ring.style.opacity = '1';
   });
 })();

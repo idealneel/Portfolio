@@ -712,61 +712,6 @@ dialog::backdrop {
   }
 }
 
-/* === CUSTOM CURSOR === */
-body {
-  cursor: none !important;
-}
-
-#cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  background-color: var(--accent-1);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99999;
-  transform: translate(-50%, -50%);
-  will-change: transform;
-  transition: transform 200ms ease, background-color 200ms ease;
-}
-
-#cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 32px;
-  height: 32px;
-  border: 2px solid rgba(108, 99, 255, 0.5); /* var(--accent-1) with opacity */
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99999;
-  transform: translate(-50%, -50%);
-  will-change: transform;
-  box-shadow: 0 0 12px rgba(108, 99, 255, 0.4);
-  transition: border-color 200ms ease, box-shadow 200ms ease;
-}
-
-/* Cursor hover state */
-body.cursor-hover #cursor-dot {
-  transform: translate(-50%, -50%) scale(2);
-  background-color: var(--accent-2);
-}
-
-body.cursor-hover #cursor-ring {
-  transform: translate(-50%, -50%) scale(1.6);
-  border-color: var(--accent-2);
-}
-
-/* Cursor click state */
-body.cursor-click #cursor-dot {
-  transform: translate(-50%, -50%) scale(0.7);
-}
-
-body.cursor-click #cursor-ring {
-  transform: translate(-50%, -50%) scale(0.7);
-}
 
 /* === PAGE TRANSITIONS === */
 .page-transition-overlay {
@@ -821,4 +766,76 @@ body.cursor-click #cursor-ring {
 @keyframes touchRippleHold {
   0%   { transform: translate(-50%, -50%) scale(0); opacity: 0.5; }
   100% { transform: translate(-50%, -50%) scale(12); opacity: 0; }
+}
+
+/* === CUSTOM CURSOR === */
+* {
+  cursor: none !important;
+}
+
+#cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: var(--accent-1);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width 200ms ease, height 200ms ease,
+              background 200ms ease, opacity 200ms ease;
+  box-shadow: 0 0 10px var(--accent-1),
+              0 0 20px var(--accent-1),
+              0 0 40px rgba(108, 99, 255, 0.4);
+}
+
+#cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(108, 99, 255, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: width 300ms ease, height 300ms ease,
+              border-color 300ms ease, opacity 300ms ease;
+}
+
+/* Cursor hover state  expands on clickable elements */
+body.cursor-hover #cursor-dot {
+  width: 12px;
+  height: 12px;
+  background: var(--accent-2);
+  box-shadow: 0 0 14px var(--accent-2),
+              0 0 28px var(--accent-2),
+              0 0 50px rgba(255, 101, 132, 0.4);
+}
+
+body.cursor-hover #cursor-ring {
+  width: 52px;
+  height: 52px;
+  border-color: rgba(255, 101, 132, 0.4);
+}
+
+/* Cursor click state */
+body.cursor-click #cursor-dot {
+  width: 6px;
+  height: 6px;
+  opacity: 0.8;
+}
+
+body.cursor-click #cursor-ring {
+  width: 24px;
+  height: 24px;
+}
+
+/* Hide custom cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  * { cursor: auto !important; }
+  #cursor-dot, #cursor-ring { display: none; }
 }

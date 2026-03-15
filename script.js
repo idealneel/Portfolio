@@ -525,21 +525,29 @@ if (modal) {
   ring.id = 'cursor-ring';
   document.body.appendChild(dot);
   document.body.appendChild(ring);
+
+  // Hide until first mouse move
   dot.style.opacity = '0';
   ring.style.opacity = '0';
 
-  let mouseX = 0, mouseY = 0;
-  let ringX  = 0, ringY  = 0;
+  let mouseX = -1000, mouseY = -1000;
+  let ringX  = -1000, ringY  = -1000;
   let rafId;
+  let started = false;
 
   // Track mouse position
   document.addEventListener('mousemove', (e) => {
+    if (!started) {
+      started = true;
+      ringX = e.clientX;
+      ringY = e.clientY;
+      dot.style.opacity  = '1';
+      ring.style.opacity = '1';
+    }
     mouseX = e.clientX;
     mouseY = e.clientY;
     dot.style.left = mouseX + 'px';
     dot.style.top  = mouseY + 'px';
-    dot.style.opacity = '1';
-    ring.style.opacity = '1';
   });
 
   // Smooth ring follow with lerp
@@ -584,22 +592,4 @@ if (modal) {
     dot.style.opacity  = '1';
     ring.style.opacity = '1';
   });
-})();
-
-// === MOBILE RIPPLE ===
-(function () {
-  const isTouch = window.matchMedia(
-    '(hover: none) and (pointer: coarse)'
-  ).matches;
-  if (!isTouch) return;
-
-  document.addEventListener('touchstart', (e) => {
-    const touch = e.touches[0];
-    const ripple = document.createElement('div');
-    ripple.className = 'ripple';
-    ripple.style.left = touch.clientX + 'px';
-    ripple.style.top  = touch.clientY + 'px';
-    document.body.appendChild(ripple);
-    setTimeout(() => ripple.remove(), 600);
-  }, { passive: true });
 })();

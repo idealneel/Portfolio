@@ -585,3 +585,21 @@ if (modal) {
     ring.style.opacity = '1';
   });
 })();
+
+// === MOBILE RIPPLE ===
+(function () {
+  const isTouch = window.matchMedia(
+    '(hover: none) and (pointer: coarse)'
+  ).matches;
+  if (!isTouch) return;
+
+  document.addEventListener('touchstart', (e) => {
+    const touch = e.touches[0];
+    const ripple = document.createElement('div');
+    ripple.className = 'ripple';
+    ripple.style.left = touch.clientX + 'px';
+    ripple.style.top  = touch.clientY + 'px';
+    document.body.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+  }, { passive: true });
+})();

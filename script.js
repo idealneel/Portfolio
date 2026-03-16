@@ -796,53 +796,5 @@ if (modal) {
   }
 })();
 
-// === STATS COUNTER ===
-(function() {
-  const counters = document.querySelectorAll('[data-count]');
-  if (!counters.length) return;
 
-  function animateCounter(el) {
-    const target = parseInt(el.getAttribute('data-count'));
-    const suffix = el.getAttribute('data-suffix') || '';
-    const duration = 1500;
-    let startTime = null;
-
-    function frame(currentTime) {
-      if (!startTime) startTime = currentTime;
-      const progress = currentTime - startTime;
-      const t = Math.min(progress / duration, 1);
-      
-      // easeOutQuad
-      const value = Math.round(target * (t * (2 - t)));
-      el.textContent = value + suffix;
-
-      if (t < 1) {
-        requestAnimationFrame(frame);
-      } else {
-        el.textContent = target + suffix;
-      }
-    }
-    requestAnimationFrame(frame);
-  }
-
-  if (!window.IntersectionObserver) {
-    counters.forEach(el => {
-      const target = el.getAttribute('data-count');
-      const suffix = el.getAttribute('data-suffix') || '';
-      el.textContent = target + suffix;
-    });
-    return;
-  }
-
-  const statsRow = document.getElementById('stats-row');
-  if (statsRow) {
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        counters.forEach(animateCounter);
-        observer.unobserve(statsRow);
-      }
-    }, { threshold: 0.5 });
-    observer.observe(statsRow);
-  }
-})();
 

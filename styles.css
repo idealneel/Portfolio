@@ -935,45 +935,46 @@ a, button {
   box-shadow: 0 0 8px var(--accent-1),
               0 0 16px rgba(108, 99, 255, 0.4);
   transition: width 50ms linear;
+}
+
+.scrambling {
+  opacity: 1;
+}
+
+#scroll-progress {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  z-index: 49;
+  background: linear-gradient(
+    90deg, 
+    var(--accent-1) 0%, 
+    var(--accent-2) 100%
+  );
+  box-shadow: 0 0 8px var(--accent-1),
+              0 0 16px rgba(108, 99, 255, 0.4);
+  transition: width 50ms linear;
   pointer-events: none;
 }
 
 /* === NAVBAR LOGO GLITCH EFFECT === */
 @keyframes glitchShift {
-  0%   { 
-    text-shadow: none; 
-    transform: translate(0);
-  }
-  10%  { 
-    text-shadow: -2px 0 var(--accent-2), 
-                  2px 0 var(--accent-1);
-    transform: translate(-1px, 0);
-  }
-  20%  { 
-    text-shadow: 2px 0 var(--accent-1), 
-                 -2px 0 var(--accent-2);
-    transform: translate(1px, 0);
-  }
-  30%  { 
-    text-shadow: none;
-    transform: translate(0);
-  }
-  35%  { 
-    text-shadow: -1px 0 var(--accent-1);
-    transform: translate(1px, 1px);
-  }
-  40%  { 
-    text-shadow: none;
-    transform: translate(0);
-  }
-  100% { 
-    text-shadow: none; 
-    transform: translate(0);
-  }
+  0%   { text-shadow: none; transform: translate(0); }
+  15%  { text-shadow: -1px 0 var(--accent-2); 
+         transform: translate(-1px, 0); }
+  30%  { text-shadow: 1px 0 var(--accent-1); 
+         transform: translate(1px, 0); }
+  45%  { text-shadow: none; transform: translate(0); }
+  60%  { text-shadow: -0.5px 0 var(--accent-1);
+         transform: translate(0.5px, 0); }
+  75%  { text-shadow: none; transform: translate(0); }
+  100% { text-shadow: none; transform: translate(0); }
 }
 
 .logo-glitch {
-  animation: glitchShift 0.4s ease-in-out;
+  animation: glitchShift 0.6s ease-in-out;
 }
 
 /* === CARD SPOTLIGHT EFFECT === */
@@ -1002,36 +1003,59 @@ a, button {
   opacity: 1;
 }
 
-/* === ROTATING BORDER EFFECT === */
-@property --border-angle {
-  syntax: '<angle>';
-  inherits: false;
-  initial-value: 0deg;
-}
+  .glass.glass-rounded:hover {
+    box-shadow: 0 8px 32px var(--shadow),
+                0 0 0 1px rgba(108, 99, 255, 0.3),
+                0 0 20px rgba(108, 99, 255, 0.1);
+    transition: box-shadow 300ms ease;
+  }
 
-@keyframes borderRotate {
-  to { --border-angle: 360deg; }
-}
+  /* Glass tags on project/cert cards */
+  .roboto-mono.tracking-widest {
+    display: inline-block;
+    background: rgba(108, 99, 255, 0.08);
+    border: 1px solid rgba(108, 99, 255, 0.2);
+    border-radius: 999px;
+    padding: 2px 10px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-size: 10px;
+  }
 
-.glass.glass-rounded {
-  --border-angle: 0deg;
-  transition: box-shadow 300ms ease;
-}
+  /* Glass pill on footer text */
+  footer p {
+    display: inline-block;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 999px;
+    padding: 6px 20px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
 
-.glass.glass-rounded:hover {
-  animation: borderRotate 3s linear infinite;
-  border: 1px solid transparent;
-  background-image: 
-    linear-gradient(var(--glass-bg), var(--glass-bg)),
-    conic-gradient(
-      from var(--border-angle),
-      var(--accent-1) 0%,
-      var(--accent-2) 25%,
-      transparent 50%,
-      var(--accent-1) 75%,
-      var(--accent-2) 100%
-    );
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-}
+  /* Glass treatment on nav active link underline — 
+     make it a pill instead of underline */
+  nav a.border-b-2 {
+    border-bottom: none !important;
+    background: rgba(108, 99, 255, 0.12);
+    border: 1px solid rgba(108, 99, 255, 0.3) !important;
+    border-radius: 999px;
+    padding: 3px 12px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Glass on scroll progress bar end cap */
+  #scroll-progress::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -2px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-1);
+    box-shadow: 0 0 8px var(--accent-1),
+                0 0 16px rgba(108, 99, 255, 0.6);
+  }
 

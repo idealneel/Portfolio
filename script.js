@@ -713,8 +713,8 @@ if (modal) {
     });
   }, { threshold: 0.3 });
 
-  // Observe matching headers
-  const targets = document.querySelectorAll('h1.gradient-text, h2.gradient-text, h1.text-4xl, h2.text-3xl');
+  // Observe matching headers (excluding h1.text-4xl to avoid typewriter conflict)
+  const targets = document.querySelectorAll('h1.gradient-text, h2.gradient-text, h2.text-3xl');
   targets.forEach(el => observer.observe(el));
 })();
 

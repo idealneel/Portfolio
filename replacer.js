@@ -7,7 +7,7 @@ const stylesPath = path.join(__dirname, 'styles.css');
 
 const indexNav = `<!-- BEGIN: Navigation -->
 <nav class="fixed top-0 left-0 right-0 h-[60px] glass z-50 flex items-center justify-between px-6" id="top-nav">
-<div class="font-bold text-xl tracking-tighter">JD<span class="text-[var(--accent-1)]">.</span></div>
+<div class="font-bold text-xl tracking-tighter">NS<span class="text-[var(--accent-1)]">.</span></div>
 <!-- Desktop Nav -->
 <div class="hidden md:flex gap-8 items-center">
 <a class="text-sm font-medium text-[var(--text-muted)] hover:text-[var(--text)] transition-colors" href="index.html">Home</a>
@@ -24,13 +24,8 @@ const indexNav = `<!-- BEGIN: Navigation -->
 const footerHTML = `<!-- BEGIN: Footer -->
 <footer class="py-12 border-t border-[var(--divider)] text-center relative z-10">
   <p class="text-[var(--text-muted)] text-sm mb-2">
-    © 2026 John Doe. Built with glass and light.
+    © 2026 Neel Shinde. Made with curiosity.
   </p>
-  <div class="flex justify-center gap-4 text-xs font-mono uppercase tracking-widest text-[var(--accent-1)]/50">
-    <span>Portfolio</span>
-    <span>•</span>
-    <span>Version 2.0</span>
-  </div>
 </footer>
 <!-- END: Footer -->`;
 

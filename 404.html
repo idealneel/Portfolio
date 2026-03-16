@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>404 | Neel Shinde</title>
+<meta name="description" content="Student, Developer & Designer from Maharashtra. Always exploring, always building, always learning.">
+<meta name="keywords" content="Neel Shinde, portfolio, web developer, designer, student, Maharashtra, HTML, CSS">
+<meta name="author" content="Neel Shinde">
+<meta name="theme-color" content="#6C63FF">
+
+<!-- Open Graph (WhatsApp, LinkedIn, Facebook previews) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://idealneel.vercel.app/">
+<meta property="og:title" content="404 | Neel Shinde">
+<meta property="og:description" content="Student, Developer & Designer from Maharashtra. Always exploring, always building, always learning.">
+<meta property="og:image" content="https://idealneel.vercel.app/favicon.svg">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:url" content="https://idealneel.vercel.app/">
+<meta name="twitter:title" content="404 | Neel Shinde">
+<meta name="twitter:description" content="Student, Developer & Designer from Maharashtra. Always exploring, always building, always learning.">
+<meta name="twitter:image" content="https://idealneel.vercel.app/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body class="selection:bg-indigo-500/30">
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<canvas id="star-canvas"></canvas>
+
+<!-- BEGIN: Navigation -->
+<nav class="fixed top-0 left-0 right-0 h-[60px] glass z-50 flex items-center justify-between px-6" id="top-nav">
+<div class="font-bold text-xl tracking-tighter">NS<span class="text-[var(--accent-1)]">.</span></div>
+<!-- Desktop Nav -->
+<div class="hidden md:flex gap-8 items-center overflow-visible pb-1">
+<a class="text-sm font-medium text-[var(--text-muted)] hover:text-[var(--text)] transition-colors" href="index.html">Home</a>
+<a class="text-sm font-medium text-[var(--text-muted)] hover:text-[var(--text)] transition-colors" href="projects.html">Projects</a>
+<a class="text-sm font-medium text-[var(--text-muted)] hover:text-[var(--text)] transition-colors" href="contact.html">Contact</a>
+</div>
+<!-- Mobile Menu Toggle -->
+<button aria-label="Toggle Menu" class="md:hidden p-2 text-[var(--text)]" id="mobile-menu-btn">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</nav>
+<div id="scroll-progress"></div>
+<!-- Mobile Dropdown Menu -->
+<div id="mobile-menu" class="fixed top-[60px] left-0 right-0 glass z-[60] overflow-hidden transition-all duration-300 max-h-0 md:hidden">
+  <div class="flex flex-col py-2">
+    <a href="index.html" class="px-6 py-3.5 text-sm font-medium text-[var(--text-muted)] hover:text-[var(--text)] transition-colors border-l-4 border-transparent">Home</a>
+    <a href="projects.html" class="px-6 py-3.5 text-sm font-medium text-[var(--text-muted)] hover:text-[var(--text)] transition-colors border-l-4 border-transparent">Projects</a>
+    <a href="contact.html" class="px-6 py-3.5 text-sm font-medium text-[var(--text-muted)] hover:text-[var(--text)] transition-colors border-l-4 border-transparent">Contact</a>
+  </div>
+</div>
+<!-- Mobile Menu Overlay -->
+<div id="mobile-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[55] hidden md:hidden"></div>
+<!-- END: Navigation -->
+
+<!-- BEGIN: Main Content -->
+<main>
+<!-- BEGIN: Hero Section -->
+<section class="relative h-screen flex items-center justify-center overflow-hidden px-6 pt-[60px]" id="hero">
+<!-- Animated Background Orbs -->
+<div class="absolute inset-0 z-0 pointer-events-none">
+  <div class="bg-orb top-[10%] left-[20%] w-[30vw] h-[30vw] opacity-20" style="background: radial-gradient(circle, var(--accent-1) 0%, transparent 70%); animation: orbDrift 15s ease-in-out infinite;"></div>
+  <div class="bg-orb bottom-[20%] right-[10%] w-[40vw] h-[40vw] opacity-15" style="background: radial-gradient(circle, var(--accent-2) 0%, transparent 70%); animation: orbDrift 12s ease-in-out infinite reverse;"></div>
+  <div class="bg-orb top-[40%] left-[50%] w-[25vw] h-[25vw] opacity-10" style="background: radial-gradient(circle, #fff 0%, transparent 70%); animation: orbDrift 20s linear infinite alternate;"></div>
+</div>
+<!-- Hero Card -->
+<div class="glass glass-rounded p-10 max-w-[380px] w-full text-center relative z-10" style="animation: floatCard 6s ease-in-out infinite;">
+<h1 class="text-8xl font-black gradient-text mb-4 tracking-tight">
+404
+</h1>
+<p class="text-[var(--text-muted)] text-xl mb-4 font-bold uppercase tracking-widest">
+Page not found.
+</p>
+<p class="text-[var(--text-muted)] text-sm mb-8 leading-relaxed">
+This page doesn't exist or was moved.
+</p>
+<a class="inline-block glass px-8 py-3 rounded-full font-semibold text-sm hover:shadow-[0_0_20px_var(--shadow)] transition-all duration-300 hover:scale-105 active:scale-95 mb-4" href="index.html">
+Go Home
+</a>
+</div>
+</section>
+<!-- END: Hero Section -->
+
+</main>
+<!-- BEGIN: JavaScript Interactivity -->
+<script src="script.js"></script>
+<!-- END: JavaScript Interactivity -->
+</body></html>

@@ -910,6 +910,12 @@ a, button {
   opacity: 0.5;
 }
 
+@media (hover: none), (pointer: coarse) {
+  #star-canvas {
+    display: none !important;
+  }
+}
+
 .scrambling {
   opacity: 1;
 }

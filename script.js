@@ -523,12 +523,8 @@ if (modal) {
   if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
 
   // Create cursor elements
-  const dot  = document.createElement('div');
-  const ring = document.createElement('div');
-  dot.id  = 'cursor-dot';
-  ring.id = 'cursor-ring';
-  document.body.appendChild(dot);
-  document.body.appendChild(ring);
+  const dot  = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
 
   // Hide until first mouse move
   dot.style.opacity = '0';
@@ -609,6 +605,7 @@ if (modal) {
   const magnets = document.querySelectorAll('a, button:not([disabled])');
   magnets.forEach(element => {
     element.addEventListener('mousemove', (e) => {
+      if (element.closest('.tilt-card')) return;
       const rect = element.getBoundingClientRect();
       const dx = e.clientX - (rect.left + rect.width / 2);
       const dy = e.clientY - (rect.top + rect.height / 2);
@@ -619,6 +616,7 @@ if (modal) {
       }
     });
     element.addEventListener('mouseleave', () => {
+      if (element.closest('.tilt-card')) return;
       element.style.transform = 'translate(0px, 0px)';
     });
   });
@@ -673,6 +671,7 @@ if (modal) {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*';
 
   function scrambleText(element) {
+    if (element.children.length > 0) return;
     if (element.closest('#skeleton-loader')) return;
     const original = element.textContent;
     element.classList.add('scrambling');
@@ -714,7 +713,7 @@ if (modal) {
   }, { threshold: 0.3 });
 
   // Observe matching headers (excluding h1.text-4xl to avoid typewriter conflict)
-  const targets = document.querySelectorAll('h1.gradient-text, h2.gradient-text, h2.text-3xl');
+  const targets = document.querySelectorAll('h2.text-3xl:not(:has(span))');
   targets.forEach(el => observer.observe(el));
 })();
 

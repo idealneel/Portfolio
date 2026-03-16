@@ -752,24 +752,6 @@ if (modal) {
   updateProgress(); // Initial set
 })();
 
-// === NAVBAR LOGO GLITCH ===
-(function() {
-  const logo = document.querySelector('#top-nav .font-bold.text-xl');
-  if (!logo) return;
-
-  function triggerGlitch() {
-    logo.classList.add('logo-glitch');
-    setTimeout(() => {
-      logo.classList.remove('logo-glitch');
-    }, 400);
-  }
-
-  // Initial glitch after load
-  setTimeout(triggerGlitch, 1000);
-
-  // Repeat every 8 seconds
-  setInterval(triggerGlitch, 8000);
-})();
 
 // === CARD SPOTLIGHT EFFECT ===
 (function() {

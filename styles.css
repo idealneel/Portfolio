@@ -959,23 +959,6 @@ a, button {
   pointer-events: none;
 }
 
-/* === NAVBAR LOGO GLITCH EFFECT === */
-@keyframes glitchShift {
-  0%   { text-shadow: none; transform: translate(0); }
-  15%  { text-shadow: -1px 0 var(--accent-2); 
-         transform: translate(-1px, 0); }
-  30%  { text-shadow: 1px 0 var(--accent-1); 
-         transform: translate(1px, 0); }
-  45%  { text-shadow: none; transform: translate(0); }
-  60%  { text-shadow: -0.5px 0 var(--accent-1);
-         transform: translate(0.5px, 0); }
-  75%  { text-shadow: none; transform: translate(0); }
-  100% { text-shadow: none; transform: translate(0); }
-}
-
-.logo-glitch {
-  animation: glitchShift 0.6s ease-in-out;
-}
 
 /* === CARD SPOTLIGHT EFFECT === */
 .spotlight-card {
@@ -988,9 +971,10 @@ a, button {
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(108, 99, 255, 0.10) 0%,
-    transparent 60%
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(108, 99, 255, 0.06) 0%,
+    rgba(108, 99, 255, 0.03) 30%,
+    transparent 70%
   );
   pointer-events: none;
   opacity: 0;

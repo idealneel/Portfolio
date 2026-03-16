@@ -464,6 +464,21 @@ if (modal) {
       link.target === '_blank'
     ) return;
 
+    // Don't navigate if already on this page
+    const currentPath = window.location.pathname;
+    const hrefPath = href.replace('.html', '');
+    const currentClean = currentPath === '/' 
+      ? '/index' 
+      : currentPath.replace('.html', '');
+    if (
+      currentPath.endsWith(href) || 
+      currentClean.endsWith(hrefPath) ||
+      (href === 'index.html' && 
+       (currentPath === '/' || 
+        currentPath.endsWith('/index.html') ||
+        currentPath.endsWith('/index')))
+    ) return;
+
     e.preventDefault();
 
     // Fade out then navigate

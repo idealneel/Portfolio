@@ -1003,24 +1003,23 @@ a, button {
 }
 
 /* === ROTATING BORDER EFFECT === */
-@keyframes borderRotate {
-  0%   { --border-angle: 0deg; }
-  100% { --border-angle: 360deg; }
-}
-
 @property --border-angle {
   syntax: '<angle>';
   inherits: false;
   initial-value: 0deg;
 }
 
+@keyframes borderRotate {
+  to { --border-angle: 360deg; }
+}
+
 .glass.glass-rounded {
   --border-angle: 0deg;
+  transition: box-shadow 300ms ease;
 }
 
 .glass.glass-rounded:hover {
   animation: borderRotate 3s linear infinite;
-  border-image: none;
   border: 1px solid transparent;
   background-image: 
     linear-gradient(var(--glass-bg), var(--glass-bg)),
@@ -1036,8 +1035,3 @@ a, button {
   background-clip: padding-box, border-box;
 }
 
-.glass.glass-rounded:not(:hover) {
-  animation: none;
-  background-image: none;
-  border: 1px solid var(--glass-border);
-}

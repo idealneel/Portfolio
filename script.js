@@ -602,3 +602,135 @@ if (modal) {
     }
   });
 })();
+
+// === MAGNETIC BUTTONS ===
+(function() {
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+  const magnets = document.querySelectorAll('a, button:not([disabled])');
+  magnets.forEach(element => {
+    element.addEventListener('mousemove', (e) => {
+      const rect = element.getBoundingClientRect();
+      const dx = e.clientX - (rect.left + rect.width / 2);
+      const dy = e.clientY - (rect.top + rect.height / 2);
+      if (Math.sqrt(dx * dx + dy * dy) < 80) {
+        element.style.transform = `translate(${dx * 0.25}px, ${dy * 0.25}px)`;
+      } else {
+        element.style.transform = 'translate(0px, 0px)';
+      }
+    });
+    element.addEventListener('mouseleave', () => {
+      element.style.transform = 'translate(0px, 0px)';
+    });
+  });
+})();
+
+// === STAR CANVAS BACKGROUND ===
+(function() {
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+  const canvas = document.getElementById('star-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+
+  function init() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    stars = [];
+    for (let i = 0; i < 120; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.2 + 0.3,
+        opacity: Math.random() * 0.6 + 0.1,
+        speed: Math.random() * 0.15 + 0.05,
+        twinkleOffset: Math.random() * Math.PI * 2
+      });
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const now = Date.now();
+    stars.forEach(star => {
+      star.y -= star.speed;
+      if (star.y < 0) star.y = canvas.height;
+      const currentOpacity = Math.sin(now * 0.001 + star.twinkleOffset) * 0.3 + star.opacity;
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(108, 99, 255, ${Math.max(0, currentOpacity)})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(animate);
+  }
+
+  window.addEventListener('resize', init);
+  init();
+  animate();
+})();
+
+// === TEXT SCRAMBLE EFFECT ===
+(function() {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*';
+
+  function scrambleText(element) {
+    if (element.closest('#skeleton-loader')) return;
+    const original = element.textContent;
+    element.classList.add('scrambling');
+    let frame = 0;
+    const totalFrames = 20;
+    const length = original.length;
+    
+    const interval = setInterval(() => {
+      let output = '';
+      const resolvedCount = Math.floor((frame / totalFrames) * length);
+      
+      for (let i = 0; i < length; i++) {
+        if (i < resolvedCount || original[i] === ' ' || original[i] === '\n') {
+          output += original[i];
+        } else {
+          output += chars[Math.floor(Math.random() * chars.length)];
+        }
+      }
+      element.textContent = output;
+      
+      if (frame >= totalFrames) {
+        clearInterval(interval);
+        element.textContent = original;
+        element.classList.remove('scrambling');
+      }
+      frame++;
+    }, 40);
+  }
+
+  // Define intersection observer
+  if (!window.IntersectionObserver) return;
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        scrambleText(entry.target);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  // Observe matching headers
+  const targets = document.querySelectorAll('h1.gradient-text, h2.gradient-text, h1.text-4xl, h2.text-3xl');
+  targets.forEach(el => observer.observe(el));
+})();
+
+// === SCROLL PROGRESS BAR ===
+(function() {
+  const bar = document.getElementById('scroll-progress');
+  if (!bar) return;
+
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    // documentElement.scrollHeight might be equal to window.innerHeight if content is small
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = pct + '%';
+  }
+
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress(); // Initial set
+})();

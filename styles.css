@@ -614,7 +614,6 @@ dialog::backdrop {
 }
 
 #mobile-menu a.active-mobile {
-  background: rgba(108, 99, 255, 0.08);
   color: var(--accent-1);
 }
 
@@ -1006,17 +1005,6 @@ a, button {
     -webkit-backdrop-filter: blur(8px);
   }
 
-  /* Glass treatment on nav active link underline — 
-     make it a pill instead of underline */
-  nav a.border-b-2 {
-    border-bottom: none !important;
-    background: rgba(108, 99, 255, 0.12);
-    border: 1px solid rgba(108, 99, 255, 0.3) !important;
-    border-radius: 999px;
-    padding: 3px 12px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
 
   /* Glass on scroll progress bar end cap */
   #scroll-progress::after {

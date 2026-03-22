@@ -833,8 +833,8 @@ dialog::backdrop {
 
 #cursor-dot {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: -100px;
+  left: -100px;
   width: 8px;
   height: 8px;
   background: var(--accent-1);
@@ -852,8 +852,8 @@ dialog::backdrop {
 
 #cursor-ring {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: -100px;
+  left: -100px;
   width: 36px;
   height: 36px;
   border: 1.5px solid rgba(108, 99, 255, 0.5);
